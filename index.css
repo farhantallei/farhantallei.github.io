@@ -525,7 +525,7 @@ footer > .copyright {
   margin-top: 2px;
 }
 
-@media only screen and (width <= 768px) and (-webkit-min-device-pixel-ratio: 2) {
+@media screen and (min-width: 768px) {
   #home > .content {
     flex-direction: column;
     gap: 48px;
@@ -547,7 +547,7 @@ footer > .copyright {
   }
 }
 
-@media only screen and (width <= 425px) and (-webkit-min-device-pixel-ratio: 2) {
+@media screen and (min-width: 425px) {
   #home,
   #call-us,
   .package-list {
@@ -556,7 +556,7 @@ footer > .copyright {
   }
 }
 
-@media only screen and (width <= 521px) and (-webkit-min-device-pixel-ratio: 2) {
+@media screen and (min-width: 521px) {
   nav {
     flex-direction: column;
     gap: 8px;
