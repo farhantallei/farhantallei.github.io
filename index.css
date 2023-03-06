@@ -525,7 +525,7 @@ footer > .copyright {
   margin-top: 2px;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
   #home > .content {
     flex-direction: column;
     gap: 48px;
@@ -547,7 +547,7 @@ footer > .copyright {
   }
 }
 
-@media screen and (min-width: 425px) {
+@media screen and (max-width: 425px) {
   #home,
   #call-us,
   .package-list {
@@ -556,7 +556,7 @@ footer > .copyright {
   }
 }
 
-@media screen and (min-width: 521px) {
+@media screen and (max-width: 521px) {
   nav {
     flex-direction: column;
     gap: 8px;
