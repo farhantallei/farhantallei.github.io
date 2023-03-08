@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Travel Agent</title>
+    <link rel="icon" type="image/png" sizes="256x256" href="/favicon.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
     <link
       href="https://fonts.googleapis.com/css?family=Open+Sans:ital,400,700"
       rel="stylesheet"
@@ -28,17 +31,55 @@
     </header>
     <!-- Content -->
     <main>
-      <!-- Home Section -->
-      <section id="home">
+      <!-- Hero Section -->
+      <section id="hero">
+        <div class="banner">
+          <img
+            class="img-slideshow"
+            src="https://images.unsplash.com/photo-1604999333679-b86d54738315?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1450&q=80"
+            alt="banner" />
+          <img
+            class="img-slideshow"
+            src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+            alt="banner" />
+          <img
+            class="img-slideshow"
+            src="https://images.unsplash.com/flagged/photo-1562503542-2a1e6f03b16b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80"
+            alt="banner" />
+        </div>
         <!-- Title -->
         <div class="title">
           <h1>Your Trusted Travel Agent's</h1>
           <div class="subhead">Your happiness is our hapiness</div>
         </div>
+      </section>
+      <script>
+        let slideIndex = -1;
+        showDivs();
+
+        function showDivs() {
+          slideIndex++;
+          const index = Math.abs(slideIndex) % 3;
+          const banner = document.getElementsByClassName('img-slideshow');
+          for (let i = 0; i < banner.length; i++) {
+            banner[i].style.opacity = 0;
+            if (i !== index)
+              setTimeout(() => (banner[i].style.display = 'none'), 1000);
+          }
+          banner[index].style.display = 'block';
+          setTimeout(() => (banner[index].style.opacity = 1), 1);
+
+          setTimeout(showDivs, 2500);
+        }
+      </script>
+      <!-- Home Section -->
+      <section id="home">
         <div class="content">
           <article>
             <div class="post">
-              <img src="/image/placeholder/image.svg" alt="post" />
+              <img
+                src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                alt="post" />
               <div class="caption">
                 <div class="caption-text">
                   "Liburan jadi menyenangkan bersama Travel Agentku."
@@ -82,23 +123,24 @@
             <p>
               Sales akan menghubungi anda 1x24 Jam setelah data kami terima.
             </p>
-            <form class="contact-form">
+            <form
+              class="contact-form"
+              name="contact-form"
+              onsubmit="return validateForm()">
               <label for="name">Your Name:</label>
               <input
                 type="text"
                 id="name"
                 name="name"
-                placeholder="First and last name"
-                required />
+                placeholder="First and last name" />
               <label for="email">Email Address:</label>
               <input
-                type="email"
+                type="text"
                 id="email"
                 name="email"
-                placeholder="example@email.com"
-                required />
-              <label for="interested">What are you interested in?</label>
-              <select name="interested" id="interested" required>
+                placeholder="example@email.com" />
+              <label for="interest">What are you interested in?</label>
+              <select name="interest" id="interest">
                 <option hidden disabled selected value>Select option</option>
                 <option value="sports">Sports</option>
                 <option value="arts">Arts</option>
@@ -109,6 +151,85 @@
               </select>
               <input type="submit" value="SEND" />
             </form>
+
+            <script>
+              function validateForm() {
+                const contactForm = document.forms['contact-form'];
+                const name = contactForm.name;
+                const email = contactForm.email;
+                const interest = contactForm.interest;
+
+                const isInputValid = inputValidation([name, email, interest]);
+
+                return false;
+              }
+
+              function inputValidation(inputs) {
+                let validate = false;
+
+                inputs.every((input) => {
+                  if (input.value == '') {
+                    focusToInput(input, validate, 'tidak boleh kosong');
+                    return false;
+                  }
+                  if (input.name === 'name') {
+                    const isLengthValid = lengthValidation(input.value, 3);
+
+                    if (!isLengthValid) {
+                      focusToInput(
+                        input,
+                        validate,
+                        'tidak boleh kurang dari 3'
+                      );
+                      return false;
+                    }
+                  }
+                  if (input.name === 'email') {
+                    const isEmailPatternMatch = emailPatternValidation(
+                      input.value
+                    );
+                    const isLengthValid = lengthValidation(input.value, 5);
+
+                    if (!isEmailPatternMatch) {
+                      focusToInput(input, validate, 'tidak benar');
+                      return false;
+                    }
+
+                    if (!isLengthValid) {
+                      focusToInput(
+                        input,
+                        validate,
+                        'tidak boleh kurang dari 10'
+                      );
+                      return false;
+                    }
+                  }
+                  input.classList.remove('error');
+                  validate = true;
+                  return true;
+                });
+
+                return validate;
+              }
+
+              function emailPatternValidation(email) {
+                const emailPattern =
+                  /^[a-zA-Z0-9]+(?:[\.\_]?[a-zA-Z0-9])*@[a-zA-Z0-9]+(?:[.]?[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}$/;
+                return emailPattern.test(email);
+              }
+
+              function lengthValidation(value, length) {
+                if (value.length < length) return false;
+                return true;
+              }
+
+              function focusToInput(input, validate, error) {
+                alert(`input ${input.name} ${error}`);
+                input.classList.add('error');
+                input.focus();
+                validate = false;
+              }
+            </script>
           </aside>
         </div>
       </section>
