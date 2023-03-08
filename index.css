@@ -563,6 +563,10 @@ footer > .copyright {
 }
 
 @media only screen and (max-width: 768px) {
+  .banner {
+    height: 400px;
+  }
+
   #home > .content {
     flex-direction: column;
     gap: 48px;
@@ -620,6 +624,10 @@ footer > .copyright {
   nav > .menu a:last-child {
     border-bottom-width: 0;
     border-radius: 0 0 4px 4px;
+  }
+
+  .banner {
+    height: 300px;
   }
 
   #hero > .title {
